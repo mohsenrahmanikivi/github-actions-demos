@@ -1,5 +1,4 @@
 
-
 variable "input" {
     description = "Please enter the VPC name?"
     type = string  
