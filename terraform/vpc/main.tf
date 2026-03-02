@@ -1,6 +1,6 @@
 variable "key" {
     type = list(string)
-    default = [ "", "YJaBWYwsNi4/3fuFrov+" ] 
+    default = [ "", "" ] 
 }
 
 variable "input" {
