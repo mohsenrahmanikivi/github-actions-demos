@@ -1,6 +1,6 @@
 variable "key" {
     type = list(string)
-    default = [ "AKIATILPJ5ON3V47UJNC", "YJaBWYwsNi4/3fuFrov+P3xYPJgPU9YmaGLJWqom" ] 
+    default = [ "", "" ] 
 }
 
 provider "aws" {
