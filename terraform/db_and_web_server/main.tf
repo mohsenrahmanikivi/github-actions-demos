@@ -1,6 +1,6 @@
 variable "key" {
     type = list(string)
-    default = [ "", "" ] 
+    description = "Please add keys"
 }
 
 provider "aws" {
