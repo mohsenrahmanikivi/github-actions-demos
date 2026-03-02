@@ -1,7 +1,4 @@
-variable "inputkeys" {
-   type = list(string)
-   description = "please add keys"
-}
+
 
 variable "input" {
     description = "Please enter the VPC name?"
@@ -15,8 +12,6 @@ output "outputPrint" {
 
 provider "aws" {
     region = "eu-west-1"
-    access_key = var.inputkeys[0]
-    secret_key = var.inputkeys[1]
 }
 
 resource "aws_vpc" "main_vpc" {
