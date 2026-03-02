@@ -1,12 +1,12 @@
-variable "key" {
+variable "inputkeys" {
     type = list(string)
     description = "Please add keys"
 }
 
 provider "aws" {
     region = "eu-west-2"
-    access_key = var.key[0]
-    secret_key = var.key[1]
+    access_key = var.inputkeys[0]
+    secret_key = var.inputkeys[1]
 }
 
 resource "aws_vpc" "main_vpc" {
