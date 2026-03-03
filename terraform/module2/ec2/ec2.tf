@@ -20,3 +20,12 @@ resource "aws_instance" "ec2_instance" {
         Name = var.ec2_name
     }
 }
+
+output "private_ip" {
+    value = aws_instance.ec2_instance.private_ip
+  
+}
+
+output "instance_id" {
+  value = aws_instance.ec2_instance.id
+}
