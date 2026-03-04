@@ -13,6 +13,7 @@ jobs:
   validate:
     name: Validate Terraform Code
     runs-on: ubuntu-latest
+    environment: dev   # 👈 THIS IS REQUIRED in order to fetch correct env variable from github
 
     env:
       TF_VAR_aws_region: 'eu-west-2'
