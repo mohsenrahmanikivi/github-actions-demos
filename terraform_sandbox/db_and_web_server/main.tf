@@ -1,15 +1,15 @@
 
 
 provider "aws" {
-    region = "eu-west-2"
+  region = "eu-west-2"
 
 }
 
 resource "aws_vpc" "main_vpc" {
-    cidr_block = "10.0.0.0/16"
-    tags = {
-      name = "main_vpc"
-    }
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    name = "main_vpc"
+  }
 }
 
 resource "aws_internet_gateway" "main_igw" {
@@ -21,12 +21,12 @@ resource "aws_internet_gateway" "main_igw" {
 }
 
 resource "aws_subnet" "web_subnet" {
-  cidr_block = "10.0.0.0/24"
-  vpc_id = aws_vpc.main_vpc.id
+  cidr_block              = "10.0.0.0/24"
+  vpc_id                  = aws_vpc.main_vpc.id
   map_public_ip_on_launch = true
   tags = {
-        name = "web_subnet"
-     }
+    name = "web_subnet"
+  }
 }
 
 resource "aws_route_table" "web_rt" {
@@ -81,20 +81,20 @@ resource "aws_security_group" "allow_web_traffic" {
 }
 
 resource "aws_instance" "web" {
-  ami = "ami-0ba0c1a358147d1a8"
-  instance_type = "t2.micro"
-  subnet_id = aws_subnet.web_subnet.id
-  vpc_security_group_ids = [ aws_security_group.allow_web_traffic.id ]
-  user_data = file("webserver-script.sh")
+  ami                    = "ami-0ba0c1a358147d1a8"
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.web_subnet.id
+  vpc_security_group_ids = [aws_security_group.allow_web_traffic.id]
+  user_data              = file("webserver-script.sh")
   tags = {
     name = "web-server"
   }
 }
 
 resource "aws_instance" "db" {
-  ami = "ami-0ba0c1a358147d1a8"
+  ami           = "ami-0ba0c1a358147d1a8"
   instance_type = "t2.micro"
-  subnet_id = aws_subnet.web_subnet.id
+  subnet_id     = aws_subnet.web_subnet.id
 
   tags = {
     name = "db-server"

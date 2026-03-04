@@ -1,7 +1,7 @@
 resource "aws_security_group" "web_access_sg" {
-    name = "web_access_sg_name"
-  
-     ingress {
+  name = "web_access_sg_name"
+
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
