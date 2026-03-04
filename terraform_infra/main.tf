@@ -1,7 +1,5 @@
 provider "aws" {
   region     = var.aws_region
-  access_key = var.keys[0]
-  secret_key = var.keys[1]
 }
 
 module "db_server" {
