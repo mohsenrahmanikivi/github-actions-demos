@@ -1,6 +1,6 @@
 variable "keys" {
-  type    = list(string)
-  default = ["", ""]
+  type      = list(string)
+  default   = ["", ""]
   sensitive = true
 }
 
