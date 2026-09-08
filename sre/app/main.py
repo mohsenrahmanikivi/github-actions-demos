@@ -1,7 +1,8 @@
 from flask import Flask, jsonify
 import logging
+import os
+import psycopg2
 import time
-import random
 
 app = Flask(__name__)
 
@@ -13,52 +14,77 @@ logging.basicConfig(
 
 @app.route("/")
 def home():
+
     logging.info("Home endpoint called")
+
     return jsonify({
-        "message": "SRE Interview Practice API",
+        "message": "SRE Practice API",
         "status": "running"
     })
 
 
 @app.route("/health")
 def health():
+
     return jsonify({
         "status": "healthy"
     }), 200
 
 
+@app.route("/db-check")
+def database_check():
+
+    try:
+
+        connection = psycopg2.connect(
+            host=os.getenv("DB_HOST"),
+            database=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            port=os.getenv("DB_PORT")
+        )
+
+        connection.close()
+
+        return jsonify({
+            "database": "connected"
+        })
+
+    except Exception as error:
+
+        logging.error(
+            f"Database connection failed: {error}"
+        )
+
+        return jsonify({
+            "database": "failed",
+            "error": str(error)
+        }), 500
+
+
 @app.route("/slow")
 def slow():
+
     time.sleep(5)
 
     return jsonify({
-        "message": "Slow response completed"
+        "message": "Slow response"
     })
 
 
 @app.route("/error")
 def error():
-    logging.error("Intentional error generated")
+
+    logging.error("Intentional application error")
 
     return jsonify({
-        "error": "Something went wrong"
+        "error": "Intentional error"
     }), 500
 
 
-@app.route("/random")
-def random_response():
-
-    if random.randint(1, 5) == 1:
-        logging.error("Random failure occurred")
-
-        return jsonify({
-            "error": "Random failure"
-        }), 500
-
-    return jsonify({
-        "status": "success"
-    })
-
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5050)
+
+    app.run(
+        host="0.0.0.0",
+        port=5050
+    )
